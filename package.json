@@ -1,5 +1,5 @@
 {
-  "name": "@waiting/idcard-reader-bp8903",
+  "name": "@waiting/bankcard-reader-bp8903",
   "author": "waiting",
   "version": "0.0.1",
   "description": "南天 BP8903 读银行卡",
@@ -50,11 +50,12 @@
   },
   "dependencies": {
     "@types/ffi": "*",
+    "@waiting/idcard-reader-base": "^1.0.1",
     "@waiting/log": "^1.0.1",
     "@waiting/shared-core": "^1.3.3",
     "ffi": "^2.3.0",
     "rxjs": "^6.4.0",
-    "win32-api": "^5.0.0"
+    "win32-def": "^2.7.0"
   },
   "devDependencies": {
     "@types/mocha": "*",
