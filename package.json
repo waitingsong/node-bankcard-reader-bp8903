@@ -50,12 +50,12 @@
   },
   "dependencies": {
     "@types/ffi": "*",
-    "@waiting/idcard-reader-base": "^1.0.1",
+    "@waiting/bankcard-reader-base": "^1.1.0",
     "@waiting/log": "^1.0.1",
     "@waiting/shared-core": "^1.3.3",
     "ffi": "^2.3.0",
     "rxjs": "^6.4.0",
-    "win32-def": "^2.7.0"
+    "win32-def": "^2.8.0"
   },
   "devDependencies": {
     "@types/mocha": "*",
