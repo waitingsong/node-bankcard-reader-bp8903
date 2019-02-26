@@ -111,12 +111,15 @@ export function readAll(device: Device): BankCardData {
   )
 
   if (code === 0) {
-    ret.cardno = buf.toString().replace(/\0+$/, '')
+    // 卡号可能重复数字  ...1234557\u0000557
+    ret.cardno = buf.toString().replace(/\0+.*$/, '')
   }
 
   if (device.deviceOpts.debug) {
     info(`readDataBase code: ${code}`)
     info(`readDataBase bufLen: ${buf.byteLength}`)
+    info('readDataBase buf: ')
+    info(buf)
     info(`readDataBase ret: ${ret}`)
     // info(buf.slice(80))
   }
