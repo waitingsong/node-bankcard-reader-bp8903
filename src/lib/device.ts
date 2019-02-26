@@ -1,10 +1,11 @@
-import { info } from '@waiting/log'
-import { dirname } from '@waiting/shared-core'
-
 import {
   BankCardData,
+} from '@waiting/bankcard-reader-base'
+import { info } from '@waiting/log'
+import { dirname, setPathDirectory } from '@waiting/shared-core'
+
+import {
   Device,
-  DllFuncsModel,
 } from './model'
 
 
@@ -37,7 +38,7 @@ export function isDevicePortOpen(device: Device): boolean {
 
 export function findDeviceList(
   deviceOpts: Device['deviceOpts'],
-  apib: DllFuncsModel,
+  apib: Device['apib'],
 ): Device[] {
   const arr: Device[] = []
 
@@ -64,9 +65,9 @@ export function findDeviceList(
 }
 
 export function findDevice(
-  openPort: number,
+  openPort: Device['openPort'],
   deviceOpts: Device['deviceOpts'],
-  apib: DllFuncsModel,
+  apib: Device['apib'],
 ): Device {
 
   const device: Device = {
@@ -90,8 +91,7 @@ export function findDevice(
 
 /** 读取银行卡 支持 接触、非接触、磁条 */
 export function readAll(device: Device): BankCardData {
-  const path = dirname(device.deviceOpts.dllTxt)
-  process.env.PATH = `${process.env.PATH};${path}`
+  setPathDirectory(dirname(device.deviceOpts.dllTxt))
 
   const buf = Buffer.alloc(64)
 

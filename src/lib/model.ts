@@ -1,32 +1,28 @@
 import {
+  BankCardData,
   Config,
-} from '@waiting/idcard-reader-base'
+  Device as DeviceBase,
+  Options,
+} from '@waiting/bankcard-reader-base'
+import {
+  DModel as M,
+  FModel as FM,
+} from 'win32-def'
 
 
 export {
+  BankCardData,
   Config,
+  Options,
 }
-
-export type Options = Partial<DeviceOpts>
-
-
-export interface DeviceOpts {
-  /* path of dll */
-  dllTxt: string
-  /* 找卡重试数量，间隔1sec */
-  findCardRetryTimes: number
-  debug: boolean
-  port: number
-  /* search all available device , stop searching at first device found if false */
-  searchAll: boolean
-}
-
 
 /* sdtapi.dll 接口方法类型 */
-export interface DllFuncsModel {
-  OpenComPort(port: number, gate: Buffer, baud: number, timeout: number): number // 查找设备并打开端口 0 成功
-  CloseComPort(): number
-  IsComOpen(): number // 检查端口是否已打开1， 0未打开
+export interface DllFuncsModel extends FM.DllFuncsModel {
+  /** 查找设备并打开端口 0 成功 */
+  OpenComPort(port: M.INT32, gate: M.POINT, baud: M.INT32, timeout: M.INT32): M.INT32
+  CloseComPort(): M.INT32
+  /** 检查端口是否已打开1， 0未打开 */
+  IsComOpen(): M.INT32
 
   /**
    * 获取银行磁卡号，自动.
@@ -35,14 +31,14 @@ export interface DllFuncsModel {
    */
   GetCardNumberFromDev(
     /** 串口号 */
-    port: number,
+    port: M.INT32,
     /** 扩展口 */
-    gate: Buffer,
+    gate: M.POINT,
     /** 超时时间 (主要为磁卡的超时时间) */
-    timeout: number,
+    timeout: M.INT32,
     /** 获取到的卡号 */
-    cardBuff: Buffer,
-  ): number
+    cardBuff: M.POINT,
+  ): M.INT32
 
   /**
    * 获取IC卡信息
@@ -59,16 +55,7 @@ export interface DllFuncsModel {
   // ): void
 }
 
-
 /** 读卡设置 */
-export interface Device {
+export interface Device extends DeviceBase {
   apib: DllFuncsModel
-  deviceOpts: DeviceOpts
-  /** device in use */
-  inUse: boolean
-  openPort: number
-}
-
-export interface BankCardData {
-  cardno: string
 }

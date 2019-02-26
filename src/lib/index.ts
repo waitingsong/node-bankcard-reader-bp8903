@@ -1,10 +1,12 @@
 import {
   parseDeviceOpts,
-  testWrite,
-  validateDllFile,
+  BankCardData,
   Options,
-} from '@waiting/idcard-reader-base'
+} from '@waiting/bankcard-reader-base'
 import { info } from '@waiting/log'
+import {
+  validateDllFile,
+} from '@waiting/shared-core'
 import * as ffi from 'ffi'
 import {
   of,
@@ -14,7 +16,7 @@ import {
   dllFuncs,
 } from './config'
 import { disconnectDevice, findDeviceList, readAll } from './device'
-import { BankCardData, Device } from './model'
+import { Device } from './model'
 
 
 export async function init(options: Options): Promise<Device[]> {
@@ -27,7 +29,6 @@ export async function init(options: Options): Promise<Device[]> {
   }
 
   await validateDllFile(deviceOpts.dllTxt)
-  await testWrite(deviceOpts.imgSaveDir)
   const apib = ffi.Library(deviceOpts.dllTxt, dllFuncs)
   const devices = findDeviceList(deviceOpts, apib)
 

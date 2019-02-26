@@ -1,33 +1,20 @@
 import {
-  join,
-  tmpdir,
-} from '@waiting/shared-core'
-import {
   DTypes as W,
   FModel as FM,
 } from 'win32-def'
 
 import {
   Config,
-  Options,
 } from './model'
 
 
+export {
+  initialOpts,
+} from '@waiting/bankcard-reader-base'
+
 export const config: Config = {
   appDir: '',  // update by entry point index.js
-  tmpDir: join(tmpdir(), 'idcard-reader'),
 }
-
-
-// 初始化参数
-export const initialOpts: Required<Options> = {
-  dllTxt: '',
-  findCardRetryTimes: 1,
-  debug: false,
-  port: 0,
-  searchAll: false,
-}
-
 
 export const dllFuncs: FM.DllFuncs = {
   OpenComPort: [W.INT, [W.INT, W.POINT, W.INT, W.INT] ],   // 查找设备端口

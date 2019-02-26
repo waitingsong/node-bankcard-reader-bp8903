@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@types/ffi": "*",
-    "@waiting/bankcard-reader-base": "^1.1.0",
+    "@waiting/bankcard-reader-base": "^1.2.0",
     "@waiting/log": "^1.0.1",
     "@waiting/shared-core": "^1.5.0",
     "ffi": "^2.3.0",
